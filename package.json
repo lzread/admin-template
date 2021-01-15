@@ -11,11 +11,14 @@
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
     "lint": "eslint --ext .js,.vue src",
     "test:unit": "jest --clearCache && vue-cli-service test:unit",
-    "test:ci": "npm run lint && npm run test:unit"
+    "test:ci": "npm run lint && npm run test:unit",
+    "commit": "git-cz",
+    "log": "conventional-changelog -p vue -i CHANGELOG.md -s"
   },
   "dependencies": {
     "@riophae/vue-treeselect": "^0.4.0",
     "axios": "0.18.1",
+    "conventional-changelog-cli": "^2.1.1",
     "core-js": "3.6.5",
     "element-ui": "2.13.2",
     "file-saver": "2.0.1",

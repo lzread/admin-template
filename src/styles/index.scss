@@ -12,6 +12,7 @@ body {
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
     Microsoft YaHei, Arial, sans-serif;
+  @include scrollBar;
 }
 html {
   height: 100%;
@@ -116,11 +117,6 @@ aside {
   }
 }
 
-//main-container全局样式
-.app-container {
-  padding: 20px;
-}
-
 .components-container {
   margin: 30px 50px;
   position: relative;
@@ -193,47 +189,41 @@ aside {
   z-index: 1000 !important;
 }
 .container {
-  padding: 10px 15px;
-}
-.filterBar {
-  display: flex;
-  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 20px;
+  .filterBar {
+    display: flex;
+    margin-bottom: 10px;
 
-  .handle-block {
-    flex-grow: 1;
-  }
+    .handle-block {
+      flex-grow: 1;
+    }
 
-  .search-block {
-    flex-grow: 0;
-  }
+    .search-block {
+      flex-grow: 0;
+    }
 
-  .extend-block {
-    flex-grow: 0;
+    .extend-block {
+      flex-grow: 0;
 
-    .el-button {
-      padding-left: 10px;
-      padding-right: 10px;
+      .el-button {
+        padding-left: 10px;
+        padding-right: 10px;
 
-      &:first-child {
-        margin-left: 15px;
+        &:first-child {
+          margin-left: 15px;
+        }
       }
     }
-  }
 
-  .el-button,
-  .el-input__inner,
-  .el-input-group__append {
-    border-radius: 0;
-  }
+    .el-button,
+    .el-input__inner,
+    .el-input-group__append {
+      border-radius: 0;
+    }
 
-  .el-input-group__append {
-    padding: 0 10px;
+    .el-input-group__append {
+      padding: 0 10px;
+    }
   }
-}
-.tableArea {
-  padding: 10px 15px;
-  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
-    0 2px 4px 0 rgba(232, 237, 250, 0.5);
-  border: 1px solid #ebebeb;
-  border-radius: 3px;
 }

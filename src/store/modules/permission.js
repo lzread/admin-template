@@ -16,6 +16,7 @@ const actions = {
       let accessedRoutes
 
       const routes = makePermissionRouters(serverRouter)
+
       if (roles.includes('admin')) {
         accessedRoutes = routes || []
       } else {

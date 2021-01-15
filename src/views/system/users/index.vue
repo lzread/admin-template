@@ -3,6 +3,7 @@
     <div class="filterBar">
       <div class="handle-block">
         <el-button
+          v-permission="'ADD'"
           type="primary"
           size="mini"
           @click="addHandle"
@@ -124,12 +125,13 @@
 </template>
 
 <script>
+import permission from '@/directive/permission/index.js' // 权限判断指令
 import { addUser, updateUser, getUsers } from '@/api/user'
 import Pagination from '@/components/Pagination'
 export default {
   name: 'User',
   filters: {},
-  directives: {},
+  directives: { permission },
   components: { Pagination },
   props: {},
   data() {

@@ -16,6 +16,13 @@ export function list() {
   })
 }
 
+export function listSmall() {
+  return request({
+    url: '/menu/getMiniMenus',
+    method: 'get'
+  })
+}
+
 export function add(data) {
   return request({
     url: '/menu/add',

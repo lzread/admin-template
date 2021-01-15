@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div class="container">
     <div class="dashboard-text">name: {{ name }}</div>
   </div>
 </template>

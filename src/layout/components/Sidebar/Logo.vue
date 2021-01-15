@@ -49,9 +49,9 @@ export default {
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background: #2b2f3a;
+  height: 60px;
+  line-height: 60px;
+  background: linear-gradient(90deg, #006cff, #399efd) !important;
   text-align: center;
   overflow: hidden;
 
@@ -63,16 +63,16 @@ export default {
       width: 32px;
       height: 32px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 10px;
     }
 
     & .sidebar-title {
       display: inline-block;
       margin: 0;
       color: #fff;
-      font-weight: 600;
-      line-height: 50px;
-      font-size: 14px;
+      font-weight: normal;
+      line-height: 60px;
+      font-size: 20px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }

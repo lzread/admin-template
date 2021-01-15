@@ -118,7 +118,6 @@ export default {
     },
     addTags() {
       const { name } = this.$route
-      console.log(this.$route)
       if (name) {
         this.$store.dispatch('tagsView/addView', this.$route)
       }
@@ -215,48 +214,40 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 34px;
+  height: 50px;
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #f6f6f6;
+
   .tags-view-wrapper {
+    padding: 0 20px;
+    box-sizing: border-box;
     .tags-view-item {
+      height: 38px;
+      padding: 0 30px 0 30px;
+      margin-top: 12px;
+      margin-right: -18px;
+      line-height: 38px;
+      text-align: center;
       display: inline-block;
+      border: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #303133;
       position: relative;
-      cursor: pointer;
-      height: 26px;
-      line-height: 26px;
-      border: 1px solid #d8dce5;
-      color: #495060;
-      background: #fff;
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
-      margin-top: 4px;
-      &:first-of-type {
-        margin-left: 15px;
-      }
-      &:last-of-type {
-        margin-right: 15px;
-      }
+      transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+
+      &:hover,
       &.active {
-        background-color: #42b983;
-        color: #fff;
-        border-color: #42b983;
-        &::before {
-          content: '';
-          background: #fff;
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          position: relative;
-          margin-right: 2px;
-        }
+        padding: 0 30px 0 30px;
+        color: #1890ff;
+        background: #e8f4ff;
+        -webkit-mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANoAAAAkBAMAAAAdqzmBAAAAMFBMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlTPQ5AAAAD3RSTlMAr3DvEM8wgCBA379gj5//tJBPAAAAnUlEQVRIx2NgAAM27fj/tAO/xBsYkIHyf9qCT8iWMf6nNQhAsk2f5rYheY7Dnua2/U+A28ZEe8v+F9Ax2v7/F4DbxkUH2wzgtvHTwbYPo7aN2jZq26hto7aN2jZq25Cy7Qvctnw62PYNbls9HWz7S8/G6//PsI6H4396gAUQy1je08W2jxDbpv6nD4gB2uWp+J9eYPsEhv/0BPS1DQBvoBLVZ3BppgAAAABJRU5ErkJggg==);
+        mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANoAAAAkBAMAAAAdqzmBAAAAMFBMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlTPQ5AAAAD3RSTlMAr3DvEM8wgCBA379gj5//tJBPAAAAnUlEQVRIx2NgAAM27fj/tAO/xBsYkIHyf9qCT8iWMf6nNQhAsk2f5rYheY7Dnua2/U+A28ZEe8v+F9Ax2v7/F4DbxkUH2wzgtvHTwbYPo7aN2jZq26hto7aN2jZq25Cy7Qvctnw62PYNbls9HWz7S8/G6//PsI6H4396gAUQy1je08W2jxDbpv6nD4gB2uWp+J9eYPsEhv/0BPS1DQBvoBLVZ3BppgAAAABJRU5ErkJggg==);
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
       }
     }
   }
@@ -286,24 +277,48 @@ export default {
 
 <style lang="scss">
 //reset element css of el-icon-close
-.tags-view-wrapper {
-  .tags-view-item {
-    .el-icon-close {
-      width: 16px;
-      height: 16px;
-      vertical-align: 2px;
-      border-radius: 50%;
-      text-align: center;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      transform-origin: 100% 50%;
-      &:before {
-        transform: scale(0.6);
-        display: inline-block;
-        vertical-align: -3px;
-      }
+.tags-view-container {
+  .tags-view-wrapper {
+    .tags-view-item {
       &:hover {
-        background-color: #b4bccc;
-        color: #fff;
+        color: #515a6e !important;
+        background: #dee1e6 !important;
+        &.active {
+          background: #e8f4ff !important;
+          color: #515a6e !important;
+        }
+        .el-icon-close {
+          width: 14px;
+        }
+      }
+      &.active {
+        .el-icon-close {
+          width: 14px;
+        }
+      }
+      .el-icon-close {
+        position: relative;
+        font-size: 12px;
+        width: 0;
+        height: 14px;
+        vertical-align: middle;
+        line-height: 15px;
+        overflow: hidden;
+        top: -1px;
+        right: -2px;
+        transform-origin: 100% 50%;
+        border-radius: 50%;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        margin-left: 5px;
+        &:before {
+          display: inline-block;
+          vertical-align: 0;
+        }
+        &:hover {
+          background-color: #b4bccc;
+          color: #fff;
+        }
       }
     }
   }

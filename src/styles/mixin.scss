@@ -1,6 +1,6 @@
 @mixin clearfix {
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -8,16 +8,23 @@
 
 @mixin scrollBar {
   &::-webkit-scrollbar-track-piece {
-    background: #d3dce6;
-  }
-
-  &::-webkit-scrollbar {
+    background: #fff;
     width: 6px;
   }
 
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
   &::-webkit-scrollbar-thumb {
-    background: #99a9bf;
-    border-radius: 20px;
+    background-color: rgba(40, 44, 52, 0.1);
+    border: 3px solid transparent;
+    border-radius: 7px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(40, 44, 52, 0.2);
   }
 }
 
@@ -44,23 +51,51 @@
     border-bottom: $color-border-style;
     border-left: $transparent-border-style;
     border-right: $transparent-border-style;
-  }
-
-  @else if $direction==right {
+  } @else if $direction==right {
     border-left: $color-border-style;
     border-top: $transparent-border-style;
     border-bottom: $transparent-border-style;
-  }
-
-  @else if $direction==down {
+  } @else if $direction==down {
     border-top: $color-border-style;
     border-left: $transparent-border-style;
     border-right: $transparent-border-style;
-  }
-
-  @else if $direction==left {
+  } @else if $direction==left {
     border-right: $color-border-style;
     border-top: $transparent-border-style;
     border-bottom: $transparent-border-style;
+  }
+}
+
+@mixin treeSelectSize($size) {
+  $height: 40;
+  $fontSize: 14px;
+  @if $size==default {
+    $height: 40;
+    $fontSize: 14px;
+  } @else if $size==medium {
+    $height: 36;
+    $fontSize: 14px;
+  } @else if $size==small {
+    $height: 32;
+    $fontSize: 12px;
+  } @else if $size==mini {
+    $height: 28;
+    $fontSize: 12px;
+  }
+  .vue-treeselect__control {
+    border-radius: 4px;
+    height: #{$height}px;
+    font-size: $fontSize;
+    padding-left: 10px;
+    .vue-treeselect__placeholder,
+    .vue-treeselect__single-value {
+      line-height: #{$height - 2}px;
+    }
+    .vue-treeselect__single-value {
+      color: #606266;
+    }
+  }
+  .vue-treeselect__menu-container{
+    font-size: $fontSize;
   }
 }

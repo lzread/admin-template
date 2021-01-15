@@ -44,6 +44,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '',
+    component: Layout,
+    redirect: '/profile',
+    children: [
+      {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/views/profile/index'),
+        meta: { title: '我的', icon: 'profile', noCache: false }
+      }
+    ]
+  },
+  {
     path: 'external-link',
     component: Layout,
     children: [
@@ -62,7 +75,7 @@ export const asyncRoutes = [
 
 const createRouter = () =>
   new Router({
-    // mode: 'history', // require service support
+    mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes
   })

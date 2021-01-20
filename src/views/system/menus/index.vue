@@ -82,10 +82,12 @@
         <el-form-item label="父级菜单">
           <treeselect
             v-model="items.parent_id"
+            :default-expand-level="1"
             :searchable="false"
             :clearable="false"
-            :options="parentItems"
+            :options="treeSelectData"
             :normalizer="normalizer"
+            :instance-id="items.id || 0"
             placeholder="请选择"
           />
           <small class="tips">选择菜单级别</small>
@@ -253,25 +255,21 @@ export default {
       iconItems: [],
       isTop: true,
       isRedirect: true,
-      permGroup: 'ADD',
-      normalizer(node) {
-        if (node.id == 0) {
-          return {
-            id: node.id,
-            label: 'Parent',
-            children: node.children
-          }
-        } else {
-          return {
-            id: node.id,
-            label: node.title,
-            children: node.children
-          }
-        }
-      }
+      permGroup: 'ADD'
     }
   },
-  computed: {},
+  computed: {
+    treeSelectData() {
+      return [
+        {
+          id: 0,
+          parent_id: -1,
+          title: '根节点',
+          children: this.parentItems
+        }
+      ]
+    }
+  },
   mounted() {
     this.restaurants = this.loadFileNameAll()
     this.iconItems = this.loadIconNameAll()
@@ -281,6 +279,18 @@ export default {
     this.getList()
   },
   methods: {
+    normalizer(node, instanceId) {
+      let disabled = false
+      if (node.id == instanceId && node.parent_id != -1) {
+        disabled = true
+      }
+      return {
+        id: node.id,
+        label: node.title,
+        isDisabled: disabled,
+        children: node.children
+      }
+    },
     async getList() {
       const { data } = await list()
       this.rows = data
@@ -303,6 +313,7 @@ export default {
       } else {
         this.isTop = false
       }
+      this.getParentMap()
       this.dialogVisible = true
       this.dialogVisibleType = 'edit'
       this.items = row
@@ -334,6 +345,7 @@ export default {
       this.isTop = false
       this.dialogVisible = true
       this.dialogVisibleType = 'add'
+      this.getParentMap()
       this.items = {}
       this.items.parent_id = row.id
     },

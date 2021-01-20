@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { updateUser, getInfo } from '@/api/user'
+import { getInfo } from '@/api/user'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Profile',

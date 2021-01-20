@@ -1,4 +1,7 @@
-# Git 提交规范
+### Git 提交
+`npm run commit`
+
+### Git 提交规范
 1. type
    - feat： 新增一个功能
    - fix: 修复bug
@@ -11,3 +14,6 @@
 3. 写一个简短的介绍
 4. 提供一个长的介绍
 5. 本修改是否实现了某个issues？
+
+### 生成修改记录
+`npm run log`

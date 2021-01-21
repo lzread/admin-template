@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">LOGIN ADMIN</h3>
       </div>
 
       <el-form-item prop="username">
@@ -19,7 +19,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="请输入用户名"
           name="username"
           type="text"
           tabindex="1"
@@ -29,14 +29,14 @@
 
       <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password" />
+          <svg-icon icon-class="lock" />
         </span>
         <el-input
           :key="passwordType"
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="请输入密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -44,7 +44,7 @@
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon
-            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+            :icon-class="passwordType === 'password' ? 'hide' : 'eye-open'"
           />
         </span>
       </el-form-item>
@@ -52,29 +52,34 @@
       <el-button
         :loading="loading"
         type="primary"
+        size="medium"
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
-      >Login</el-button>
+      >登录</el-button>
     </el-form>
+    <div class="loginFooter">
+      <span>license: {{ config.license }}</span>
+      <span>version: {{ config.version }}</span>
+    </div>
   </div>
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
-
+import pkg from '../../../package.json'
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入正确的用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位数字'))
       } else {
         callback()
       }
@@ -102,7 +107,8 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      config: pkg
     }
   },
   watch: {
@@ -148,12 +154,9 @@ export default {
 </script>
 
 <style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-
-$bg: #283443;
-$light_gray: #fff;
-$cursor: #fff;
+$bg: #fff;
+$light_gray: #333;
+$cursor: #666;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
@@ -177,6 +180,7 @@ $cursor: #fff;
       color: $light_gray;
       height: 47px;
       caret-color: $cursor;
+      font-size: 16px;
 
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bg inset !important;
@@ -185,38 +189,51 @@ $cursor: #fff;
     }
   }
 
+  .el-button {
+    height: 47px;
+  }
+
   .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid #e4e4e4;
+    background: #f7f7f7;
     border-radius: 5px;
     color: #454545;
+    margin-bottom: 30px;
+    .el-form-item__error {
+      padding-top: 10px;
+    }
   }
 }
 </style>
 
 <style lang="scss" scoped>
-$bg: #2d3a4b;
-$dark_gray: #889aa4;
-$light_gray: #eee;
+$bg: #fff;
+$dark_gray: #2d3a4b;
+$light_gray: #2d3a4b;
 
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background: $bg center top url('~@/assets/login_bg.jpg');
   overflow: hidden;
 
   .login-form {
     position: relative;
-    width: 520px;
+    width: 400px;
+    height: 400px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+    padding: 60px 35px 0;
+    margin: 150px auto 20px;
     overflow: hidden;
+    border: 1px solid #f4f4f4;
+    background: #fff;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
   }
 
   .tips {
-    font-size: 14px;
-    color: #fff;
+    font-size: 12px;
+    color: #333;
     margin-bottom: 10px;
 
     span {
@@ -226,8 +243,16 @@ $light_gray: #eee;
     }
   }
 
+  .loginFooter {
+    text-align: center;
+    color: #ccc;
+    span {
+      padding: 0 10px;
+    }
+  }
+
   .svg-container {
-    padding: 6px 5px 6px 15px;
+    padding: 1px 5px 8px 15px;
     color: $dark_gray;
     vertical-align: middle;
     width: 30px;
@@ -238,18 +263,18 @@ $light_gray: #eee;
     position: relative;
 
     .title {
-      font-size: 26px;
+      font-size: 20px;
       color: $light_gray;
-      margin: 0px auto 40px auto;
+      margin: 0px auto 30px auto;
       text-align: center;
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 
   .show-pwd {
     position: absolute;
     right: 10px;
-    top: 7px;
+    top: 9px;
     font-size: 16px;
     color: $dark_gray;
     cursor: pointer;

@@ -3,7 +3,6 @@
     <el-form
       ref="loginForm"
       :model="loginForm"
-      :rules="loginRules"
       class="login-form"
       auto-complete="on"
       label-position="left"
@@ -65,45 +64,14 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
 import pkg from '../../../package.json'
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('密码不能少于6位数字'))
-      } else {
-        callback()
-      }
-    }
     return {
       loginForm: {
         username: 'admin',
         password: '123456'
-      },
-      loginRules: {
-        username: [
-          {
-            required: true,
-            trigger: 'blur',
-            validator: validateUsername
-          }
-        ],
-        password: [
-          {
-            required: true,
-            trigger: 'blur',
-            validator: validatePassword
-          }
-        ]
       },
       loading: false,
       passwordType: 'password',

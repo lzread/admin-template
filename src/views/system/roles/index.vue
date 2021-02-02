@@ -188,7 +188,6 @@
 import { list as getAllMenus } from '@/api/menu'
 import {
   getRoles,
-  getRoleNameExist,
   getRoleMenu,
   addRole,
   updateRole,
@@ -197,7 +196,7 @@ import {
 } from '@/api/role'
 import { getUsers, addUserRole, deleteUserRole } from '@/api/user'
 import { deepClone } from '@/utils'
-import PermissionList from '../components/PermissionList'
+import PermissionList from './components/PermissionList'
 import Pagination from '@/components/Pagination'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 export default {
@@ -307,29 +306,21 @@ export default {
       const { data, total } = await getUsers(this.userListQuery)
       this.users = data
       this.userTotal = total
+      
     },
     async addUserRoleHandle(row) {
       await addUserRole({
         user_id: row.id,
         role_id: this.role_id
       })
-      //   if (data) {
-      //     const ids = row.role_ids.split(',') || []
-      //     ids.push(this.role_id)
-      //     row.role_ids = ids.join(',')
-      //   }
+      this.getUsers()
     },
     async deleteUserRoleHandle(row) {
       await deleteUserRole({
         user_id: row.id,
         role_id: this.role_id
       })
-
-      //   if (data) {
-      //     const ids = row.role_ids.split(',')
-      //     ids.splice(arrayKey(ids, this.role_id), 1)
-      //     row.role_ids = ids.join(',')
-      //   }
+      this.getUsers()
     },
     deleteRoleHandle(index, row) {
       this.$confirm('是否删除当前角色?', '提示', {
@@ -350,7 +341,6 @@ export default {
         if (valid) {
           if (this.dialogVisibleRoleType === 'add') {
             try {
-              await getRoleNameExist(this.role.role_code)
               await addRole(this.role)
             } catch (error) {
               return
@@ -379,14 +369,17 @@ export default {
     },
     isCurrent(row) {
       if (row.role_ids) {
-        const arr = row.role_ids.split(',')
+        const ids = row.role_ids.split(',')
         const role_id = this.role_id.toString()
-        if (arr.includes(role_id)) {
+        if (ids.includes(role_id)) {
+          // 添加按钮 隐藏
           return false
         } else {
+          // 添加按钮 显示
           return true
         }
       } else {
+        // 添加按钮 显示
         return true
       }
     },

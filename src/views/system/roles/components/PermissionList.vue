@@ -14,7 +14,7 @@
             <span>{{ item.title }}</span>
           </label>
         </div>
-        <perm-list
+        <permission-list
           v-if="item.children"
           :items="item.children"
           :set-selected="setCheckedKeys"
@@ -27,9 +27,8 @@
 
 <script>
 import { deepClone } from '@/utils'
-
 export default {
-  name: 'PermList',
+  name: 'PermissionList',
   props: {
     items: {
       type: Array,
